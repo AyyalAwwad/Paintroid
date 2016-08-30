@@ -12,8 +12,10 @@ import android.view.View;
 import org.catrobat.paintroid.MainActivity;
 import org.catrobat.paintroid.R;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,6 +45,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
  * Created by Aiman Ayyal Awwad on 10/29/2015.
  */
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestCase2<MainActivity> {
 private MainActivity mActivity;
@@ -128,6 +131,11 @@ public ViewsAssertionLocalizationTest() {
 
    @Test
     public void assertIsDisplayedForMainActivity() {
+       onView(withId(R.id.main_layout)).check(matches(isDisplayed()));
+   }
+
+    @Test
+    public void assertALanguageIsChanged() {
 
         onView(withId(R.id.main_layout)).check(matches(isDisplayed()));
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
@@ -135,7 +143,8 @@ public ViewsAssertionLocalizationTest() {
         onView(withId(R.id.ar)).perform(click());
     }
 
-   @Test
+
+    @Test
    public void assertIsDisplayedForColorPalletDialog()
    {
     onView(withId(R.id.btn_bottom_attribute2))
@@ -167,7 +176,7 @@ public ViewsAssertionLocalizationTest() {
     }
 
     @Test
-    public void assertSwippingRightforStrokeSeekbar()
+    public void assertSwippingRightForStrokeSeekbar()
     {
         onView(withId(R.id.btn_bottom_attribute1))
                 .perform(click());
@@ -256,14 +265,6 @@ public ViewsAssertionLocalizationTest() {
                 withText(R.string.button_import_image)))).check(matches(isCompletelyDisplayed()));
         onView(allOf(withId(R.id.tool_button_image), hasSibling(
                 withText(R.string.button_resize)))).check(matches(isCompletelyDisplayed()));
-    }
-
-
-    public void changeLanguageBeforeStartTesting()
-    {
-        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-        onView(withText(R.string.menu_language_settings)).perform(click());
-        onView(withId(R.id.ar)).perform(click());
     }
 
     @Test
